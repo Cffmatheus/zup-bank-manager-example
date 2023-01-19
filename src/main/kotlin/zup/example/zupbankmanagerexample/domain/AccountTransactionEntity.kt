@@ -1,5 +1,6 @@
 package zup.example.zupbankmanagerexample.domain
 
+import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -14,17 +15,15 @@ data class AccountTransactionEntity(
         @Id
         @Column(name = "TRANSACTION_ID")
         val transactionId: BigInteger? = null,
+        @Column(name = "TRANSACTION_TYPE")
+        val transactionType: String? = null,
+        @Column(name = "AMOUNT")
+        val amount: BigDecimal? = null,
         @ManyToOne
-        @JoinColumn(name = "ACCOUNT_NUMBER")
-        val accountNumber: AccountEntity? = null,
-        @Column(name = "DEPOSIT")
-        val deposit: BigDecimal? = null,
-        @Column(name = "WITHDRAW")
-        val withdraw: BigDecimal? = null,
-        @Column(name = "ACCOUNT_NUMBER_TO")
-        val accountNumberTo: String? = null,
-        @Column(name = "ACCOUNT_NUMBER_FROM")
-        val accountNumberFrom: String? = null,
+        @JoinColumn(name = "ORIGIN_ACCOUNT_NUMBER", referencedColumnName = "ACCOUNT_NUMBER")
+        val originAccountNumber: AccountEntity? = null,
+        @Column(name = "DESTINATION_ACCOUNT_NUMBER")
+        val destinationAccountNumber: String? = null,
         @Column(name = "CREATED_AT")
         val createdAt: LocalDateTime = LocalDateTime.now(),
         @Column(name = "UPDATED_AT")

@@ -10,6 +10,7 @@ import zup.example.zupbankmanagerexample.mapper.mapToEntity
 import zup.example.zupbankmanagerexample.repository.CustomerRepository
 import zup.example.zupbankmanagerexample.service.exceptions.CustomerAlreadyExistsException
 import zup.example.zupbankmanagerexample.service.exceptions.CustomerNotFoundException
+import zup.example.zupbankmanagerexample.utils.generateUUID
 import zup.example.zupbankmanagerexample.utils.onlyDigits
 import java.time.LocalDateTime
 import java.util.UUID
@@ -55,9 +56,5 @@ class CustomerService {
             throw CustomerNotFoundException("Customer with cpf $cpf not found. Nothing to delete.")
         val customerSaved = repository.findByCpf(cpf.onlyDigits())
         repository.deleteById(customerSaved.customerId!!)
-    }
-
-    private fun generateUUID() : String{
-        return UUID.randomUUID().toString()
     }
 }

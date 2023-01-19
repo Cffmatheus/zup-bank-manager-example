@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotEmpty
 import jakarta.validation.constraints.PastOrPresent
 import org.hibernate.validator.constraints.br.CPF
 import zup.example.zupbankmanagerexample.domain.AccountEntity
+import java.math.BigDecimal
 import java.time.LocalDate
 
 
@@ -23,7 +24,7 @@ data class CustomerDataUpdate(
 )
 
 data class CustomerDataResponse(
-        val customrId: String
+        val customerId: String
 )
 
 data class CustomerDataGetResponse(
@@ -32,5 +33,10 @@ data class CustomerDataGetResponse(
         val cpf: String?,
         val email: String?,
         val birthDate: LocalDate?,
-        val account: AccountEntity?
+        val account: AccountFromCustomerDataGetResponse?
+)
+
+data class AccountFromCustomerDataGetResponse(
+        val accountNumber: String?,
+        val balance: BigDecimal?
 )

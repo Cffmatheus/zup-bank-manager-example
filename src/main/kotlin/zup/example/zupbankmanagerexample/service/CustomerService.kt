@@ -44,11 +44,15 @@ class CustomerService {
 
     fun find(cpf: String) : CustomerEntity {
         logger.info("Trying to find customer with cpf: $cpf.")
+        if (!repository.existsByCpf(cpf.onlyDigits()))
+            throw CustomerNotFoundException("Customer with cpf $cpf not found.")
         return repository.findByCpf(cpf.onlyDigits())
     }
 
     fun delete(cpf: String) {
         logger.info("Trying to delete customer with cpf: $cpf.")
+        if (!repository.existsByCpf(cpf.onlyDigits()))
+            throw CustomerNotFoundException("Customer with cpf $cpf not found. Nothing to delete.")
         val customerSaved = repository.findByCpf(cpf.onlyDigits())
         repository.deleteById(customerSaved.customerId!!)
     }

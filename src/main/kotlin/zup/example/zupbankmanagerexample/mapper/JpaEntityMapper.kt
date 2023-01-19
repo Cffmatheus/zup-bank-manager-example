@@ -30,15 +30,14 @@ fun mapToEntity(
     )
 }
 
-fun mapToEntity(
+fun mapToAccountEntity(
         accountNumber: String,
-        accountDataCreate: AccountDataCreate,
+        accountDataCreate: AccountDataCreate?,
         customerEntity: CustomerEntity
 ) : AccountEntity {
     return AccountEntity(
             accountNumber = accountNumber,
-            customer = customerEntity,
-            balance = accountDataCreate.balance?.toBigDecimal()?: BigDecimal.ZERO,
-            active = true
+            balance = accountDataCreate?.balance?.toBigDecimal()?: BigDecimal.ZERO,
+            customer = customerEntity
     )
 }

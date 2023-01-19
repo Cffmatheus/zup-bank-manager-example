@@ -1,7 +1,12 @@
 package zup.example.zupbankmanagerexample.domain
 
+import jakarta.persistence.CascadeType
+import jakarta.persistence.CascadeType.ALL
+import jakarta.persistence.CascadeType.PERSIST
+import jakarta.persistence.CascadeType.MERGE
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.Id
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.OneToMany
@@ -14,15 +19,13 @@ data class AccountEntity (
         @Id
         @Column(name = "ACCOUNT_NUMBER")
         val accountNumber: String? = null,
-        @OneToOne
+        @OneToOne(fetch = FetchType.EAGER, optional = true)
         @JoinColumn(name = "CUSTOMER_ID")
         val customer: CustomerEntity? = null,
-        @OneToMany
-        val transactions: List<AccountTransactionEntity>? = null,
+        @OneToMany(mappedBy = "originAccountNumber", cascade = [ALL])
+        val transactions: List<AccountTransactionEntity>? = emptyList(),
         @Column(name = "BALANCE")
         val balance: BigDecimal? = null,
-        @Column(name = "ACTIVE")
-        val active: Boolean? = null,
         @Column(name = "CREATED_AT")
         val createdAt: LocalDateTime = LocalDateTime.now(),
         @Column(name = "UPDATED_AT")

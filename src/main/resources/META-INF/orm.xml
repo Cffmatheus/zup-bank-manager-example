@@ -1,0 +1,35 @@
+<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd"
+                 version="2.1">
+    
+    <named-native-query name="AccountEntity.deleteByCustomerCpf">
+        <query>
+            <![CDATA[
+            DELETE FROM account
+            WHERE
+            customer_id = (SELECT customer_id FROM customer WHERE cpf = :cpf)
+            ]]>
+        </query>
+    </named-native-query>
+
+    <named-native-query name="AccountEntity.deleteByAccountNumber">
+        <query>
+            <![CDATA[
+            DELETE FROM account
+            WHERE
+            account_number = :accountNumber
+            ]]>
+        </query>
+    </named-native-query>
+
+    <named-native-query name="AccountEntity.deleteByCustomerCustomerId">
+        <query>
+            <![CDATA[
+            DELETE FROM account
+            WHERE
+            customer_id = (SELECT customer_id FROM customer WHERE customer_id = ?1)
+            ]]>
+        </query>
+    </named-native-query>
+</entity-mappings>

@@ -7,3 +7,7 @@ class CustomerAlreadyExistsException(message: String) : ApplicationException(mes
 class CustomerNotFoundException(message: String) : ApplicationException(message)
 
 class AccountAlreadyExistsException(message: String) : ApplicationException(message)
+
+class AccountNotFoundException(message: String) : ApplicationException(message)
+
+class AccountIdentifierNotFoundException(message: String) : ApplicationException(message)

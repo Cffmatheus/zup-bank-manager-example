@@ -16,28 +16,22 @@ import zup.example.zupbankmanagerexample.service.CustomerService
 @RestController
 class CustomerController: CustomerApi {
 
-    private val logger = LoggerFactory.getLogger(this.javaClass)
-
     @Autowired
     lateinit var customerService: CustomerService
 
     override fun create(request: CustomerDataCreate): CustomerDataResponse {
-        logger.info("Creating customer ${request.name}.")
         return toResponse(customerService.create(request))
     }
 
     override fun update(cpf: String, request: CustomerDataUpdate): CustomerDataResponse {
-        logger.info("Trying to update customer ${request.name}.")
         return toResponse(customerService.update(cpf, request))
     }
 
     override fun find(cpf: String): CustomerDataGetResponse {
-        logger.info("Trying to find customer with CPF: $cpf")
         return toResponse(customerService.find(cpf))
     }
 
     override fun delete(cpf: String) {
-        logger.info("Trying to delete customer with CPF: $cpf")
         customerService.delete(cpf)
     }
 

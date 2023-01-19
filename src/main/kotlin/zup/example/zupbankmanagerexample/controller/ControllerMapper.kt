@@ -1,7 +1,9 @@
 package zup.example.zupbankmanagerexample.controller
 
+import zup.example.zupbankmanagerexample.api.data.AccountDataResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataGetResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataResponse
+import zup.example.zupbankmanagerexample.domain.AccountEntity
 import zup.example.zupbankmanagerexample.domain.CustomerEntity
 
 object ControllerMapper {
@@ -19,5 +21,9 @@ object ControllerMapper {
                 birthDate = customerEntity.birthDate,
                 account = customerEntity.account
         )
+    }
+
+    internal fun toAccountResponse(accountNumber: String): AccountDataResponse {
+        return AccountDataResponse(accountNumber)
     }
 }

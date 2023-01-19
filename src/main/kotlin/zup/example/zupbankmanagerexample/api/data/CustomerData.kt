@@ -23,7 +23,7 @@ data class CustomerDataUpdate(
 )
 
 data class CustomerDataResponse(
-        val customrId: String
+        val customerId: String
 )
 
 data class CustomerDataGetResponse(

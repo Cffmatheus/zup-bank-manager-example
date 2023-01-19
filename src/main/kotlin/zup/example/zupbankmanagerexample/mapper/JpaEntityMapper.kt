@@ -1,9 +1,12 @@
 package zup.example.zupbankmanagerexample.mapper
 
+import zup.example.zupbankmanagerexample.api.data.AccountDataCreate
 import zup.example.zupbankmanagerexample.api.data.CustomerDataCreate
 import zup.example.zupbankmanagerexample.api.data.CustomerDataUpdate
+import zup.example.zupbankmanagerexample.domain.AccountEntity
 import zup.example.zupbankmanagerexample.domain.CustomerEntity
 import zup.example.zupbankmanagerexample.utils.onlyDigits
+import java.math.BigDecimal
 
 fun mapToEntity(
         customerId: String,
@@ -24,5 +27,18 @@ fun mapToEntity(
 ): CustomerEntity {
     return CustomerEntity(
 
+    )
+}
+
+fun mapToEntity(
+        accountNumber: String,
+        accountDataCreate: AccountDataCreate,
+        customerEntity: CustomerEntity
+) : AccountEntity {
+    return AccountEntity(
+            accountNumber = accountNumber,
+            customer = customerEntity,
+            balance = accountDataCreate.balance?.toBigDecimal()?: BigDecimal.ZERO,
+            active = true
     )
 }

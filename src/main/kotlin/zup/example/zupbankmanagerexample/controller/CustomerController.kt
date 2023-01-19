@@ -10,7 +10,6 @@ import zup.example.zupbankmanagerexample.api.data.CustomerDataGetResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataUpdate
 import zup.example.zupbankmanagerexample.controller.ControllerMapper.toResponse
-import zup.example.zupbankmanagerexample.domain.CustomerEntity
 import zup.example.zupbankmanagerexample.service.CustomerService
 
 @RequestMapping("/customer")

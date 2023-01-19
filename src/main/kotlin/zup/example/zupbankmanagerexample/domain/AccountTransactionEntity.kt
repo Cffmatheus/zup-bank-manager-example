@@ -14,17 +14,16 @@ data class AccountTransactionEntity(
         @Id
         @Column(name = "TRANSACTION_ID")
         val transactionId: BigInteger? = null,
+        @Column(name = "TRANSACTION_TYPE")
+        val transactionType: String? = null,
+        @Column(name = "AMOUNT")
+        val amount: BigDecimal? = null,
         @ManyToOne
-        @JoinColumn(name = "ACCOUNT_NUMBER")
-        val accountNumber: AccountEntity? = null,
-        @Column(name = "DEPOSIT")
-        val deposit: BigDecimal? = null,
-        @Column(name = "WITHDRAW")
-        val withdraw: BigDecimal? = null,
-        @Column(name = "ACCOUNT_NUMBER_TO")
-        val accountNumberTo: String? = null,
-        @Column(name = "ACCOUNT_NUMBER_FROM")
-        val accountNumberFrom: String? = null,
+        @JoinColumn(name = "ORIGIN_ACOUNT_NUMBER")
+        val originAccountNumber: AccountEntity? = null,
+        @ManyToOne
+        @JoinColumn(name = "DESTINATION_ACCOUNT_NUMBER")
+        val destinationAccountNumber: AccountEntity? = null,
         @Column(name = "CREATED_AT")
         val createdAt: LocalDateTime = LocalDateTime.now(),
         @Column(name = "UPDATED_AT")

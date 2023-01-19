@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.HttpStatus.CONFLICT
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
+import org.springframework.http.HttpStatus.PAYMENT_REQUIRED
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
@@ -20,6 +21,7 @@ class ErrorHandler {
             is AccountAlreadyExistsException -> CONFLICT
             is AccountNotFoundException -> NOT_FOUND
             is AccountIdentifierNotFoundException -> BAD_REQUEST
+            is InsufficientFundsException-> PAYMENT_REQUIRED
             else -> INTERNAL_SERVER_ERROR
         }
         val error = ErrorResponse(status.value(), ex.message)

@@ -15,11 +15,9 @@
 
     <named-native-query name="AccountEntity.deleteByAccountNumber">
         <query>
-            <![CDATA[
             DELETE FROM account
             WHERE
-            account_number = :accountNumber
-            ]]>
+            account_number = ?1
         </query>
     </named-native-query>
 

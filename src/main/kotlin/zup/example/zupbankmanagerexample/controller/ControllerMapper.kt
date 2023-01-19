@@ -4,9 +4,14 @@ import zup.example.zupbankmanagerexample.api.data.AccountDataGetResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerFromAccountDataGetResponse
 import zup.example.zupbankmanagerexample.api.data.AccountDataResponse
 import zup.example.zupbankmanagerexample.api.data.AccountFromCustomerDataGetResponse
+import zup.example.zupbankmanagerexample.api.data.AccountTransactionData
+import zup.example.zupbankmanagerexample.api.data.AccountTransactionResponseData
+import zup.example.zupbankmanagerexample.api.data.AccountTransactionStatementResponseData
+import zup.example.zupbankmanagerexample.api.data.AccountTransactionWithTypeData
 import zup.example.zupbankmanagerexample.api.data.CustomerDataGetResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataResponse
 import zup.example.zupbankmanagerexample.domain.AccountEntity
+import zup.example.zupbankmanagerexample.domain.AccountTransactionEntity
 import zup.example.zupbankmanagerexample.domain.CustomerEntity
 
 object ControllerMapper {
@@ -22,14 +27,14 @@ object ControllerMapper {
                 cpf = customerEntity.cpf,
                 email = customerEntity.email,
                 birthDate = customerEntity.birthDate,
-                account = accountFromCustomer(customerEntity.account!!)
+                account = accountFromCustomer(customerEntity.account)
         )
     }
 
-    private fun accountFromCustomer(accountEntity: AccountEntity) : AccountFromCustomerDataGetResponse {
+    private fun accountFromCustomer(accountEntity: AccountEntity?): AccountFromCustomerDataGetResponse {
         return AccountFromCustomerDataGetResponse(
-                accountNumber = accountEntity.accountNumber,
-                balance = accountEntity.balance
+                accountNumber = accountEntity?.accountNumber,
+                balance = accountEntity?.balance
         )
     }
 
@@ -42,6 +47,33 @@ object ControllerMapper {
                 accountNumber = accountEntity.accountNumber,
                 customer = customerFromAccount(accountEntity.customer!!),
                 balance = accountEntity.balance
+        )
+    }
+
+    internal fun toAccountTransactionResponse(accountTransactionEntity: AccountTransactionEntity, message: String)
+            : AccountTransactionResponseData {
+        return AccountTransactionResponseData(
+                message = message,
+                transaction = AccountTransactionData(
+                        amount = accountTransactionEntity.amount!!,
+                        date = accountTransactionEntity.createdAt
+                ),
+                balance = accountTransactionEntity.originAccountNumber?.balance!!
+        )
+    }
+
+    internal fun toAccountAccountTransactionStatementResponse(
+            accountStatement: List<AccountTransactionEntity>
+    ): AccountTransactionStatementResponseData {
+        return AccountTransactionStatementResponseData(
+                accountNumber = accountStatement.firstOrNull()?.originAccountNumber?.accountNumber!!,
+                transactions = accountStatement.map {
+                    AccountTransactionWithTypeData(
+                            amount = it.amount!!,
+                            type = it.transactionType!!,
+                            date = it.createdAt
+                    )
+                }
         )
     }
 

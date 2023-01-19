@@ -11,3 +11,5 @@ class AccountAlreadyExistsException(message: String) : ApplicationException(mess
 class AccountNotFoundException(message: String) : ApplicationException(message)
 
 class AccountIdentifierNotFoundException(message: String) : ApplicationException(message)
+
+class InsufficientFundsException(message: String) : ApplicationException(message)

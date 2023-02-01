@@ -35,28 +35,20 @@ class AccountService {
         return accountRepository.save(mapToAccountEntity(generateUUID(), request, customer)).accountNumber!!
     }
 
+    fun update(accountEntity: AccountEntity): AccountEntity {
+        return accountRepository.save(accountEntity)
+    }
+
     fun find(accountDataRequest: AccountDataRequest): AccountEntity {
         val (identifier, valueIdentifier) = accountDataRequest.throughWhichIdentifier()
-        logger.info("Trying to find account through $identifier: $valueIdentifier")
         return when (identifier) {
-            CPF -> {
-                accountRepository.findByCustomerCpf(valueIdentifier).orElseThrow {
-                    AccountNotFoundException("Account not found with $identifier: $valueIdentifier.")
-                }
-            }
-            ACCOUNT_NUMBER -> {
-                accountRepository.findById(valueIdentifier).orElseThrow {
-                    AccountNotFoundException("Account not found with $identifier: $valueIdentifier.")
-                }
-            }
-            CUSTOMER_ID -> {
-                accountRepository.findByCustomerCustomerId(valueIdentifier).orElseThrow {
-                    AccountNotFoundException("Account not found with $identifier: $valueIdentifier.")
-                }
-            }
+            CPF -> findByCustomerCpf(valueIdentifier)
+            ACCOUNT_NUMBER -> findByAccountNumber(valueIdentifier)
+            CUSTOMER_ID -> findByCustomerCustomerId(valueIdentifier)
         }
     }
 
+    @Transactional
     fun delete(accountDataRequest: AccountDataRequest) {
         val (identifier, valueIdentifier) = accountDataRequest.throughWhichIdentifier()
         logger.info("Trying to delete account through $identifier: $valueIdentifier")
@@ -65,5 +57,31 @@ class AccountService {
             ACCOUNT_NUMBER -> accountRepository.deleteByAccountNumber(valueIdentifier)
             CUSTOMER_ID -> accountRepository.deleteByCustomerCustomerId(valueIdentifier)
         }
+    }
+
+    fun findByCustomerCpf(cpf: String) : AccountEntity {
+        logger.info("Trying to find account through CPF: $cpf")
+        return accountRepository.findByCustomerCpf(cpf).orElseThrow {
+            AccountNotFoundException("Account not found with CPF: $cpf.")
+        }
+    }
+
+    fun findByAccountNumber(accountNumber: String) : AccountEntity {
+        logger.info("Trying to find account through accout number: $accountNumber")
+        return accountRepository.findById(accountNumber).orElseThrow {
+            AccountNotFoundException("Account not found with account number: $accountNumber.")
+        }
+    }
+
+    fun findByCustomerCustomerId(customerId: String) : AccountEntity {
+        logger.info("Trying to find account through customer id: $customerId")
+        return accountRepository.findByCustomerCustomerId(customerId).orElseThrow {
+            AccountNotFoundException("Account not found with customer id: $customerId.")
+        }
+    }
+
+    fun existsByAccountNumber(accountNumber: String) : Boolean {
+        logger.info("Trying to verify if account $accountNumber exists.")
+        return accountRepository.existsById(accountNumber)
     }
 }

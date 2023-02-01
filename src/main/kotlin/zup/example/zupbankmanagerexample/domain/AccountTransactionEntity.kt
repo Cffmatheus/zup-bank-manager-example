@@ -1,9 +1,10 @@
 package zup.example.zupbankmanagerexample.domain
 
-import jakarta.persistence.CascadeType.ALL
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
 import jakarta.persistence.ManyToOne
 import java.math.BigDecimal
@@ -13,6 +14,7 @@ import java.time.LocalDateTime
 @Entity(name = "ACCOUNT_TRANSACTION")
 data class AccountTransactionEntity(
         @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "TRANSACTION_ID")
         val transactionId: BigInteger? = null,
         @Column(name = "TRANSACTION_TYPE")
@@ -29,3 +31,7 @@ data class AccountTransactionEntity(
         @Column(name = "UPDATED_AT")
         val updatedAt: LocalDateTime? = null
 )
+
+enum class AccountTransactionType {
+        WITHDRAW, DEPOSIT, TRANSFER
+}

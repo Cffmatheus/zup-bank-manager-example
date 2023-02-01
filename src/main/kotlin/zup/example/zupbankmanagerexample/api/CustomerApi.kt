@@ -18,7 +18,6 @@ import zup.example.zupbankmanagerexample.api.data.CustomerDataCreate
 import zup.example.zupbankmanagerexample.api.data.CustomerDataGetResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataResponse
 import zup.example.zupbankmanagerexample.api.data.CustomerDataUpdate
-import zup.example.zupbankmanagerexample.domain.CustomerEntity
 
 interface CustomerApi {
 

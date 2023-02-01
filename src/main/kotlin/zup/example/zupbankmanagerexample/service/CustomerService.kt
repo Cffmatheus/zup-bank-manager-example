@@ -13,7 +13,6 @@ import zup.example.zupbankmanagerexample.service.exceptions.CustomerNotFoundExce
 import zup.example.zupbankmanagerexample.utils.generateUUID
 import zup.example.zupbankmanagerexample.utils.onlyDigits
 import java.time.LocalDateTime
-import java.util.UUID
 
 @Service
 class CustomerService {

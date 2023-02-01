@@ -1,9 +1,6 @@
 package zup.example.zupbankmanagerexample.domain
 
-import jakarta.persistence.CascadeType
 import jakarta.persistence.CascadeType.ALL
-import jakarta.persistence.CascadeType.PERSIST
-import jakarta.persistence.CascadeType.MERGE
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
